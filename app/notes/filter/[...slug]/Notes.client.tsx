@@ -15,13 +15,15 @@ import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
 
 import css from "./NotesPage.module.css";
+import { NoteTag } from "@/types/note";
 
 interface Props {
   query: string;
   page: number;
+  tag?: NoteTag | undefined;
 }
 
-export default function NotesClient({ query, page }: Props) {
+export default function NotesClient({ query, page, tag }: Props) {
   const [search, setSearch] = useState(query);
   const [currentPage, setCurrentPage] = useState(page);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,8 +31,8 @@ export default function NotesClient({ query, page }: Props) {
   const [debouncedQuery] = useDebounce(search, 500);
 
   const { data, isError, isSuccess } = useQuery({
-    queryKey: ["notes", debouncedQuery, currentPage],
-    queryFn: () => fetchNotes(debouncedQuery, currentPage),
+    queryKey: ["notes", debouncedQuery, currentPage, tag],
+    queryFn: () => fetchNotes(debouncedQuery, currentPage, tag),
     placeholderData: keepPreviousData,
     refetchOnMount: false,
   });

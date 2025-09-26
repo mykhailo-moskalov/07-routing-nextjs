@@ -5,9 +5,9 @@ import {
 } from "@tanstack/react-query";
 
 import { fetchNotes } from "@/lib/api";
-import NotesClient from "./Notes.client";
+import NotesClient from "./[...slug]/Notes.client";
 
-const NotesPage = async () => {
+const AllNotesPage = async () => {
   const queryClient = new QueryClient();
   const query = "";
   const page = 1;
@@ -24,4 +24,4 @@ const NotesPage = async () => {
   );
 };
 
-export default NotesPage;
+export default AllNotesPage;
