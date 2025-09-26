@@ -1,15 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import css from "./TagsMenu.module.css";
 import Link from "next/link";
 import { NoteTag } from "@/types/note";
 
 const TagsMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
+  const menuRef = useRef<HTMLUListElement>(null);
+
+  const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
 
   const noteTags = Object.values(NoteTag);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        toggle();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [toggle]);
 
   return (
     <div className={css.menuContainer}>
@@ -17,7 +46,7 @@ const TagsMenu = () => {
         Notes ▾
       </button>
       {isOpen && (
-        <ul className={css.menuList}>
+        <ul ref={menuRef} className={css.menuList}>
           <li className={css.menuItem}>
             <Link
               className={css.menuLink}
