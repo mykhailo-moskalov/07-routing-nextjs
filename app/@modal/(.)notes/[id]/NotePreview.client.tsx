@@ -1,3 +1,5 @@
+"use client";
+
 import css from "./NotePreview.module.css";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
