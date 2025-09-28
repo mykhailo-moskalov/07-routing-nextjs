@@ -50,7 +50,7 @@ const TagsMenu = () => {
           <li className={css.menuItem}>
             <Link
               className={css.menuLink}
-              href={`/notes/filter`}
+              href={`/notes/filter/All`}
               onClick={toggle}
             >
               All notes

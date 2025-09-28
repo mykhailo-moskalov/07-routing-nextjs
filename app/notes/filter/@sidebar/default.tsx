@@ -8,7 +8,7 @@ const TagsMenu = () => {
   return (
     <ul className={css.menuList}>
       <li className={css.menuItem}>
-        <Link className={css.menuLink} href={`/notes/filter`}>
+        <Link className={css.menuLink} href={"/notes/filter/All"}>
           All notes
         </Link>
       </li>
