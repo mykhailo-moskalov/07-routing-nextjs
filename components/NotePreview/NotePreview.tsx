@@ -31,19 +31,21 @@ const NotePreview = ({ onClick }: NotePreviewProps) => {
     : `Created at: ${note.createdAt}`;
 
   return (
-    <div className={css.container}>
+    <>
       <button onClick={onClick} className={css.backBtn} type="button">
         Go Back
       </button>
-      <div className={css.item}>
-        <div className={css.header}>
-          <h2>{note.title}</h2>
+      <div className={css.container}>
+        <div className={css.item}>
+          <div className={css.header}>
+            <h2>{note.title}</h2>
+          </div>
+          <p className={css.content}>{note.content}</p>
+          <p className={css.tag}>{note.tag}</p>
+          <p className={css.date}>{formattedDate}</p>
         </div>
-        <p className={css.content}>{note.content}</p>
-        <p className={css.tag}>{note.tag}</p>
-        <p className={css.date}>{formattedDate}</p>
       </div>
-    </div>
+    </>
   );
 };
 
