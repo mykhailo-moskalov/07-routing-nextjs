@@ -29,7 +29,7 @@ const TagsMenu = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        toggle();
+        setIsOpen(false);
       }
     };
 
@@ -38,7 +38,7 @@ const TagsMenu = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [toggle]);
+  }, []);
 
   return (
     <div className={css.menuContainer}>
