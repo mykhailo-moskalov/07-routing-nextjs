@@ -1,17 +1,17 @@
 "use client";
 
 import css from "./NotePreview.module.css";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSingleNote } from "@/lib/api";
 import Loader from "@/app/loading";
+import Modal from "@/components/Modal/Modal";
 
-interface NotePreviewProps {
-  onClick: () => void;
-}
-
-const NotePreview = ({ onClick }: NotePreviewProps) => {
+const NotePreview = () => {
   const { id } = useParams<{ id: string }>();
+
+  const router = useRouter();
+  const close = () => router.back();
 
   const {
     data: note,
@@ -33,8 +33,8 @@ const NotePreview = ({ onClick }: NotePreviewProps) => {
     : `Created at: ${note.createdAt}`;
 
   return (
-    <>
-      <button onClick={onClick} className={css.backBtn} type="button">
+    <Modal onClose={close}>
+      <button onClick={close} className={css.backBtn} type="button">
         Go Back
       </button>
       <div className={css.container}>
@@ -47,7 +47,7 @@ const NotePreview = ({ onClick }: NotePreviewProps) => {
           <p className={css.date}>{formattedDate}</p>
         </div>
       </div>
-    </>
+    </Modal>
   );
 };
 
